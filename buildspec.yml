@@ -1,0 +1,32 @@
+version: 0.2
+
+env:
+  variables:
+    NODE_ENV: production
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo "Installing dependencies..."
+      - npm install
+  
+  build:
+    commands:
+      - echo "Building TypeScript..."
+      - npm run build
+  
+  post_build:
+    commands:
+      - echo "Running typecheck..."
+      - npm run typecheck
+
+artifacts:
+  files:
+    - '**/*'
+  exclude-paths:
+    - node_modules/**
+    - .git/**
+    - '*.md'
+    - 'dist/node_modules/**'
